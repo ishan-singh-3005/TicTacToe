@@ -1,4 +1,5 @@
 #include <stdio.h>
+#pragma warning(suppress : 4996)
 
 struct TicTacToe {
 	char board[3][3];
@@ -126,7 +127,7 @@ void playerFirst(struct TicTacToe game) {
 			break;
 		}
 	}
-	printf("Game finished!");
+	printf("Game finished!\n");
 }
 
 void computerFirst(struct TicTacToe game) {
@@ -162,30 +163,35 @@ void computerFirst(struct TicTacToe game) {
 			break;
 		}
 	}
-	printf("Game finished!");
+	printf("Game finished! \n");
 }
 
 int main() {
+	int play = 0;
 	struct TicTacToe game;
-	initializeBoard(game.board);
-	printf("Welcome to TicTacToe \n");
-	printBoard(game.board);
-	printf("Choose your symbol: ");
-	scanf_s("%c", &game.playerChar);
-	if (game.playerChar == 'O') {
-		game.computerChar = 'X';
-	}
-	else {
-		game.computerChar = 'O';
-	}
+	while (play == 0) {
+		initializeBoard(game.board);
+		printf("Welcome to TicTacToe \n");
+		printBoard(game.board);
+		printf("Choose your symbol: ");
+		scanf_s(" %c", &game.playerChar);
+		if (game.playerChar == 'O') {
+			game.computerChar = 'X';
+		}
+		else {
+			game.computerChar = 'O';
+		}
 
-	printf("Do you want to go first? 0 for yes, 1 for no: ");
-	scanf_s("%d", &game.turn);
-	if (game.turn == 0) {
-		playerFirst(game);
-	}
-	else {
-		computerFirst(game);
+		printf("Do you want to go first? 0 for yes, 1 for no: ");
+		scanf_s("%d", &game.turn);
+		if (game.turn == 0) {
+			playerFirst(game);
+		}
+		else {
+			computerFirst(game);
+		}
+		printf("Do you want to play again? 0 for yes, 1 for no: ");
+		scanf_s("%d", &play);
 	}
 	return 0;
 }
